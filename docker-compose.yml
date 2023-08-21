@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  image: 'mongo:latest'
+  container_name: 'mongo'
+  port:
+    - '27100:27017'
+  volumes:
+    - ./data/dev/mongo:/data/db
