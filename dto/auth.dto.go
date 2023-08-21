@@ -7,5 +7,5 @@ type Register struct {
 }
 
 func (r *Register) IsEmpty() bool {
-	return r.Email == ""
+	return r.Email == "" || r.Password == ""
 }

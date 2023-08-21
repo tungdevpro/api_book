@@ -21,18 +21,18 @@ func (auth *AuthHandler) Register(ctx *gin.Context) {
 	request := DTO.Register{}
 	defer ctx.Request.Body.Close()
 
-	if isEmpty := request.IsEmpty(); isEmpty {
-		ctx.JSON(http.StatusOK, helpers.ErrorResponse{
-			StatusCode: -1,
-			Message:    "Please complete all information",
-		})
-		return
-	}
-
 	if err := ctx.Bind(&request); err != nil {
 		ctx.JSON(http.StatusOK, helpers.ErrorResponse{
 			StatusCode: -1,
 			Message:    err.Error(),
+		})
+		return
+	}
+
+	if isEmpty := request.IsEmpty(); isEmpty {
+		ctx.JSON(http.StatusOK, helpers.ErrorResponse{
+			StatusCode: -1,
+			Message:    "Please complete all information",
 		})
 		return
 	}
