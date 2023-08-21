@@ -1,9 +1,18 @@
 package config
 
-import "github.com/joho/godotenv"
+import (
+	"api_book/helpers"
+	"os"
 
-func GlobalConfig() {
+	"github.com/joho/godotenv"
+)
+
+func Load() {
 	if err := godotenv.Load(); err != nil {
-
+		helpers.Fatal(err)
 	}
+}
+
+func Get(k string) string {
+	return os.Getenv(k)
 }

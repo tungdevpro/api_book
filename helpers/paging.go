@@ -1,4 +1,4 @@
-package helper
+package helpers
 
 type Paging struct {
 	Page  int   `bson:"page" json:"page" form:"page"`
