@@ -1,6 +1,7 @@
 package repoimpl
 
 import (
+	"api_book/helpers"
 	"api_book/models"
 	"api_book/repository"
 	"errors"
@@ -27,15 +28,15 @@ func (repo *AuthRepositoriesImpl) Register(ctx *gin.Context, param models.User) 
 
 	var user models.User
 
-	col.InsertOne(ctx, param)
-
-	if err := col.FindOne(ctx, filter).Decode(&user); err != nil {
-		if err == mongo.ErrNoDocuments {
-			return "", errors.New("record does not exist")
-		}
-		return "", err
+	col.FindOne(ctx, filter).Decode(&user)
+	if user.Email != "" {
+		return "", errors.New("record does exist")
 	}
 
-	return "sucess", nil
+	doc, err := col.InsertOne(ctx, param)
+	if err != nil {
+		return "", err
+	}
+	return helpers.HexMongoID(doc), nil
 }
 func (repo *AuthRepositoriesImpl) ForgotPassword(ctx *gin.Context) {}

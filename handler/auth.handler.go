@@ -6,7 +6,6 @@ import (
 	"api_book/middleware"
 	"api_book/models"
 	"api_book/repository"
-	"fmt"
 	"net/http"
 
 	"github.com/asaskevich/govalidator"
@@ -57,18 +56,30 @@ func (auth *AuthHandler) Register(ctx *gin.Context) {
 		Role:     "guest",
 	}
 
-	result, err := auth.AuthRepository.Register(ctx, user)
-	helpers.Fatal(err)
-	fmt.Println("result: ", result)
-
 	token, err := middleware.GenToken(user)
 	helpers.Fatal(err)
-
 	user.AccessToken = token
+
+	oid, err := auth.AuthRepository.Register(ctx, user)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, helpers.ErrorResponse{
+			StatusCode: -3,
+			Message:    err.Error(),
+		})
+		return
+	}
+	if oid == "" {
+		ctx.JSON(http.StatusBadRequest, helpers.ErrorResponse{
+			StatusCode: -1,
+			Message:    "Error",
+		})
+		return
+	}
+
 	ctx.JSON(http.StatusOK, helpers.Response{
 		StatusCode: 1,
 		Message:    "",
-		Data:       user,
+		Data:       oid,
 	})
 }
 

@@ -22,5 +22,5 @@ func main() {
 		routes.UserRouter(r, v1)
 	}
 
-	r.Run(":3001")
+	r.Run(":3002")
 }
