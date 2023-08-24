@@ -71,7 +71,7 @@ func (auth *AuthHandler) Register(ctx *gin.Context) {
 	if oid == "" {
 		ctx.JSON(http.StatusBadRequest, helpers.ErrorResponse{
 			StatusCode: -1,
-			Message:    "Error",
+			Message:    "Error was happen",
 		})
 		return
 	}
