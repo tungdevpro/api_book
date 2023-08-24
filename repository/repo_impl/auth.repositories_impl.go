@@ -21,7 +21,9 @@ func NewAuthRepository(client *mongo.Client) repository.AuthRepository {
 	}
 }
 
-func (repo *AuthRepositoriesImpl) Login(ctx *gin.Context) {}
+func (repo *AuthRepositoriesImpl) Login(ctx *gin.Context) {
+
+}
 func (repo *AuthRepositoriesImpl) Register(ctx *gin.Context, param models.User) (any, error) {
 	col := repo.client.Database("bookz").Collection("users")
 	filter := bson.D{{Key: "email", Value: param.Email}}
