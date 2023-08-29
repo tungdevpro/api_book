@@ -86,7 +86,7 @@ func (auth *AuthHandler) Register(ctx *gin.Context) {
 func (auth *AuthHandler) Login(ctx *gin.Context) {
 	request := DTO.Login{}
 
-		defer ctx.Request.Body.Close()
+	defer ctx.Request.Body.Close()
 
 	if err := ctx.Bind(&request); err != nil {
 		ctx.JSON(http.StatusOK, helpers.ErrorResponse{
