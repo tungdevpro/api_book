@@ -16,7 +16,7 @@ func GenToken(user models.User) (string, error) {
 		return "", errors.New("")
 	}
 
-	if len(user.ID) == 0 {
+	if len(user.Id) == 0 {
 		return "", errors.New("len(id) == 0")
 	}
 
